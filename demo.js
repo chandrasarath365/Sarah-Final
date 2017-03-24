@@ -109,22 +109,22 @@ app.post('/webhook', function(request, response)
     {
   sendReceipt(cart,json, request,response);
   }
-     else if(req.body.result.action == "duck"){
+     else if(request.body.result.action == "duck"){
 	console.log("in ddg");
 	str = req.body.result.resolvedQuery;
 	console.log(str);	
 	if(str.includes("tell me about "))
 		str = str.replace("tell me about ","");
 	console.log(str);
-	duck(str,res);
+	duck(str,response);
 } 
-else if(req.body.result.action == "Gifs"){
+else if(request.body.result.action == "Gifs"){
 	console.log("hjdv skd");
 	request({
 	url : "http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC",	    
 	json: true
 	}, function (error, response, body) {
-		sendIMessage(response.body.data['image_url'],res);
+		sendIMessage(response.body.data['image_url'],response);
 		console.log(response.body.data['image_url']);
 	});
 }
