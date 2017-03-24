@@ -119,8 +119,13 @@ app.post('/webhook', function(request, response)
 	duck(str,response);
 } 
 else if(request.body.result.action == "Gifs"){
-	console.log("hjdv skd");
-	request({
+gif(response)
+}
+}
+
+) //app.post
+function gif(response){
+		request({
 	url : "http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC",	    
 	json: true
 	}, function (error, response, body) {
@@ -128,9 +133,6 @@ else if(request.body.result.action == "Gifs"){
 		console.log(response.body.data['image_url']);
 	});
 }
-}
-
-) //app.post
 function duck(query,res){
 	Burl = "http://api.duckduckgo.com/?q="+query+"&format=json&pretty=1";
 	request({
