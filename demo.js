@@ -111,7 +111,7 @@ app.post('/webhook', function(request, response)
   }
      else if(request.body.result.action == "duck"){
 	console.log("in ddg");
-	str = req.body.result.resolvedQuery;
+	str = request.body.result.resolvedQuery;
 	console.log(str);	
 	if(str.includes("tell me about "))
 		str = str.replace("tell me about ","");
