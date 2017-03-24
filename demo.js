@@ -156,6 +156,7 @@ function duck(query,res){
 });
 }
 function sendIMessage(url1,res){
+	log(url1)
 	res.writeHead(200, {"Content-Type": "application/json"});
 	var json = JSON.stringify({ 
 	speech : "enjoy random Gif", 
