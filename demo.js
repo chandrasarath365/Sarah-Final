@@ -109,9 +109,69 @@ app.post('/webhook', function(request, response)
     {
   sendReceipt(cart,json, request,response);
   }
+     else if(req.body.result.action == "duck"){
+	console.log("in ddg");
+	str = req.body.result.resolvedQuery;
+	console.log(str);	
+	if(str.includes("tell me about "))
+		str = str.replace("tell me about ","");
+	console.log(str);
+	duck(str,res);
+} 
+else if(req.body.result.action == "Gifs"){
+	console.log("hjdv skd");
+	request({
+	url : "http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC",	    
+	json: true
+	}, function (error, response, body) {
+		sendIMessage(response.body.data['image_url'],res);
+		console.log(response.body.data['image_url']);
+	});
+}
 }
 
 ) //app.post
+function duck(query,res){
+	Burl = "http://api.duckduckgo.com/?q="+query+"&format=json&pretty=1";
+	request({
+	url : Burl,
+	json : true 	
+	},function(error,response,body){
+	if(!error){
+		if(body!=null){
+			if(body.Abstract==null){
+			if(body.Definition==null){
+				str = body.Results;
+			}
+			else
+			str = body.Definition;
+			}
+			else
+			str = body.Abstract;
+			sendMessage(str,res);	
+		}	
+	}	
+});
+}
+function sendIMessage(url1,res){
+	res.writeHead(200, {"Content-Type": "application/json"});
+	var json = JSON.stringify({ 
+	speech : "enjoy random Gif", 
+        displayText : "enjoy random Gif", 
+	data : {
+	facebook : {
+	attachment : {
+	type : "image",
+	payload : {	
+	url : url1	
+	}	
+	}	
+	}	
+	},
+        source : "item"
+  	});
+   	res.end(json);		
+}
 function sendReceipt(cart, json, request,response)
 {
   var r_query 
