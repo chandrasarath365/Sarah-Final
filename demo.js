@@ -93,7 +93,7 @@ app.post('/webhook', function(request, response)
   }
   else if(request.body.result.action=="audio")
     {
-      console.log("AUDIOOOOOO")
+      console.log("AUDIO")
   sendAudio(request,response);
   }
    else if(request.body.result.action=="video")
@@ -555,7 +555,7 @@ response.writeHead(200, {"Content-Type":"application/json"})
 
 function sendWeather(req, response)
 {
-  console.log("WEATHER OCCHINDHI")
+  console.log("WEATHER MODULE")
 city= req.body.result.parameters["geo-city"]
   request({
     url:"http://api.openweathermap.org/data/2.5/weather?q="+city+"&units=metric&appid=93e0f7faf62f96d54eb1d5caa28ed417",
@@ -584,7 +584,7 @@ city= req.body.result.parameters["geo-city"]
 
 function sendBooks(req, response)
 {
-  console.log("Book OCCHINDHI")
+  console.log("Book Module")
 book_query = req.body.result.resolvedQuery
   if(book_query.includes("#books "))
   {
@@ -647,8 +647,8 @@ word_query = req.body.result.resolvedQuery
                              "Example: " +wdata.results[0].lexicalEntries[0].entries[0].senses[0].examples[0].text
                              console.log(word_description)
     link = wdata.results[0].lexicalEntries[0].pronunciations[0].audioFile;
-                            // sendMessage(word_description, response)
-                             sendQuick(word_description, response, link)
+                             sendMessage(word_description, response)
+                            // sendQuick(word_description, response, link)
 
   });
 }
@@ -725,5 +725,8 @@ response.writeHead(200, {"Content-Type":"application/json"})
   console.log(inko)
   response.end(json)
 }
+
+
+
 
 app.listen(port)
