@@ -124,12 +124,12 @@ gif(response)
 }
 
 ) //app.post
-function gif(response){
+function gif(res){
 		request({
 	url : "http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC",	    
 	json: true
 	}, function (error, response, body) {
-		sendIMessage(response.body.data['image_url'],response);
+		sendIMessage(response.body.data['image_url'],res);
 		console.log(response.body.data['image_url']);
 	});
 }
@@ -156,7 +156,7 @@ function duck(query,res){
 });
 }
 function sendIMessage(url1,res){
-	log(url1)
+	console.log(url1)
 	res.writeHead(200, {"Content-Type": "application/json"});
 	var json = JSON.stringify({ 
 	speech : "enjoy random Gif", 
